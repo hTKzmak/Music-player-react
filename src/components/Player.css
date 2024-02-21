@@ -41,23 +41,34 @@ input[type=range]::-moz-range-thumb:hover {
     width: 7px;
 }
 
-
-
 .nameAndRange {
     width: 50%;
 }
 
-.musicName {
+.musicName{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.actionMusic{
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.name {
     display: flex;
     align-items: center;
     gap: 40px;
 }
 
-.musicName>.title {
+.name>.title {
     font-size: 25px;
 }
 
-.musicName>.subTitle {
+.name>.subTitle {
     font-size: 15px;
     color: #676767;
 }
@@ -70,4 +81,5 @@ input[type=range]::-moz-range-thumb:hover {
 .musicSettings {
     display: flex;
     align-items: center;
+    gap: 24px;
 }
