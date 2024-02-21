@@ -1,0 +1,30 @@
+.component{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: #282828;
+    color: #FFFFFF;
+    padding: 0 95px;
+    height: 135px;
+}
+
+.musicName{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.musicName>.title{
+    font-size: 25px;
+}
+
+.musicName>.subTitle{
+    font-size: 15px;
+    color: #676767;
+}
+
+.playButton{
+    background-color: transparent;
+    border: none;
+}
