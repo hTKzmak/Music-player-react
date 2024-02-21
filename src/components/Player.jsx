@@ -4,11 +4,23 @@ import path from "../assets/path.mp4"; // импорт музыки
 import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai"; // иконки для воспроизведения и паузы
 import { BiSkipNext, BiSkipPrevious } from "react-icons/bi"; // иконки для следующего и предыдущего трека
 import { IconContext } from "react-icons"; // для кастомизации иконок
+import { BsRepeat, BsFillVolumeDownFill } from "react-icons/bs";
 import '../components/Player.css'
 
 function Player() {
     const [isPlaying, setIsPlaying] = useState(false); // воспроизведение музыки (false - не играет)
     const [play, { pause, duration, sound }] = useSound(path); // инициализация музыки и кнопок (играть [ пауза, метод звука и тд ])
+    const [seconds, setSeconds] = useState(); // текущая позиция звука в секундах
+
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (sound) {
+                setSeconds(sound.seek([]));
+            }
+        });
+        return () => clearInterval(interval);
+    }, [sound]);
 
 
     const playingButton = () => {
@@ -62,12 +74,25 @@ function Player() {
                         min="0"
                         max={duration / 1000}
                         default="0"
+                        value={seconds}
                         className="timeline"
                         onChange={(e) => {
                             sound.seek([e.target.value]);
                         }}
                     />
                 </div>
+            </div>
+            <div className="musicSettings">
+                <button className="playButton">
+                    <IconContext.Provider value={{ size: "2em", color: "#E3E3E3" }}>
+                        <BsRepeat />
+                    </IconContext.Provider>
+                </button>
+                <button className="playButton">
+                    <IconContext.Provider value={{ size: "3em", color: "#E3E3E3" }}>
+                        <BsFillVolumeDownFill />
+                    </IconContext.Provider>
+                </button>
             </div>
         </div>
     );

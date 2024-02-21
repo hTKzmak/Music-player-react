@@ -1,30 +1,73 @@
-.component{
+.component {
+    font-family: "Comfortaa", sans-serif;
+
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 
     background-color: #282828;
     color: #FFFFFF;
+
     padding: 0 95px;
     height: 135px;
+
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
-.musicName{
+input[type=range] {
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    height: 3px;
+    background: #767676;
+}
+
+input[type=range]::-moz-range-thumb {
+    height: 5px;
+    width: 5px;
+    border-radius: 0px;
+    background: #FFFFFF;
+    border: none;
+    cursor: pointer;
+}
+
+input[type=range]::-moz-range-thumb:hover {
+    height: 7px;
+    width: 7px;
+}
+
+
+
+.nameAndRange {
+    width: 50%;
+}
+
+.musicName {
     display: flex;
     align-items: center;
     gap: 40px;
 }
 
-.musicName>.title{
+.musicName>.title {
     font-size: 25px;
 }
 
-.musicName>.subTitle{
+.musicName>.subTitle {
     font-size: 15px;
     color: #676767;
 }
 
-.playButton{
+.playButton {
     background-color: transparent;
     border: none;
+}
+
+.musicSettings {
+    display: flex;
+    align-items: center;
 }
