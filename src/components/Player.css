@@ -25,6 +25,8 @@ input[type=range] {
 
     height: 3px;
     background: #767676;
+
+    cursor: pointer;
 }
 
 input[type=range]::-moz-range-thumb {
