@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import useSound from "use-sound"; //для работы со звуком
 import path from "../assets/path.mp4"; // импорт музыки
-// import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai"; // иконки для воспроизведения и паузы
-// import { BiSkipNext, BiSkipPrevious } from "react-icons/bi"; // иконки для следующего и предыдущего трека
-// import { IconContext } from "react-icons"; // для кастомизации иконок
-// import { BsRepeat, BsFillVolumeDownFill } from "react-icons/bs";
 
 import { ReactComponent as Pause } from "../assets/icons/pause.svg"
 import { ReactComponent as Play } from "../assets/icons/play.svg"
@@ -18,7 +14,8 @@ import '../components/Player.css'
 
 function Player() {
     const [isPlaying, setIsPlaying] = useState(false); // воспроизведение музыки (false - не играет)
-    const [play, { pause, duration, sound }] = useSound(path); // инициализация музыки и кнопок (играть [ пауза, метод звука и тд ])
+    const [vol, setVol] = useState(0.5) // Громкость звука
+    const [play, { pause, duration, sound }] = useSound(path, { volume: vol }); // инициализация музыки и кнопок (играть [ пауза, метод звука и тд ])
     const [seconds, setSeconds] = useState(); // текущая позиция звука в секундах
 
     const [time, setTime] = useState({
@@ -77,30 +74,18 @@ function Player() {
         <div className="component">
             <div className="actionMusic">
                 <button className="playButton">
-                    {/* <IconContext.Provider value={{ size: "3em", color: "#E3E3E3" }}>
-                        <BiSkipPrevious />
-                    </IconContext.Provider> */}
                     <Previous />
                 </button>
                 {!isPlaying ? (
                     <button className="playButton" onClick={playingButton}>
-                        {/* <IconContext.Provider value={{ size: "3em", color: "#E3E3E3" }}>
-                            <AiFillPlayCircle />
-                        </IconContext.Provider> */}
                         <Play />
                     </button>
                 ) : (
                     <button className="playButton" onClick={playingButton}>
-                        {/* <IconContext.Provider value={{ size: "3em", color: "#E3E3E3" }}>
-                            <AiFillPauseCircle />
-                        </IconContext.Provider> */}
                         <Pause />
                     </button>
                 )}
                 <button className="playButton">
-                    {/* <IconContext.Provider value={{ size: "3em", color: "#E3E3E3" }}>
-                        <BiSkipNext />
-                    </IconContext.Provider> */}
                     <Next />
                 </button>
             </div>
@@ -111,12 +96,6 @@ function Player() {
                         <p className="subTitle">Apocalyptica</p>
                     </div>
                     <div className="time">
-                        {/* <p>
-                            {currTime.min}:{currTime.sec}
-                        </p>
-                        <p>
-                            {time.min}:{time.sec}
-                        </p> */}
                         <p>{currTime.min}:{currTime.sec} / {time.min}:{time.sec}</p>
                     </div>
                 </div>
@@ -136,21 +115,21 @@ function Player() {
             </div>
             <div className="musicSettings">
                 <button className="playButton">
-                    {/* <IconContext.Provider value={{ size: "2em", color: "#E3E3E3" }}>
-                        <BsRepeat />
-                    </IconContext.Provider> */}
                     <Again />
                 </button>
-                <button className="playButton">
-                    {/* <IconContext.Provider value={{ size: "3em", color: "#E3E3E3" }}>
-                        <BsFillVolumeDownFill />
-                    </IconContext.Provider> */}
+                <button className="playButton" id="music">
+                    <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        value={vol}
+                        className="volumeChanger"
+                        onChange={(e) => setVol(e.target.value)}
+                    />
                     <Volume />
                 </button>
                 <button className="playButton">
-                    {/* <IconContext.Provider value={{ size: "3em", color: "#E3E3E3" }}>
-                        <BsFillVolumeDownFill />
-                    </IconContext.Provider> */}
                     <Mix />
                 </button>
             </div>
