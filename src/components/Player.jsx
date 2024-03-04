@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useSound from "use-sound"; //для работы со звуком
 import path from "../assets/path.mp4"; // импорт музыки
+import ignis from "../assets/ignis.mp3"; // импорт музыки
 
 import { ReactComponent as Pause } from "../assets/icons/pause.svg"
 import { ReactComponent as Play } from "../assets/icons/play.svg"
@@ -15,7 +16,7 @@ import '../components/Player.css'
 function Player() {
     const [isPlaying, setIsPlaying] = useState(false); // воспроизведение музыки (false - не играет)
     const [vol, setVol] = useState(0.5) // Громкость звука
-    const [play, { pause, duration, sound }] = useSound(path, { volume: vol }); // инициализация музыки и кнопок (играть [ пауза, метод звука и тд ])
+    const [play, { pause, duration, sound }] = useSound(ignis, { volume: vol }); // инициализация музыки и кнопок (играть [ пауза, метод звука и тд ])
     const [seconds, setSeconds] = useState(); // текущая позиция звука в секундах
 
     const [time, setTime] = useState({
@@ -92,8 +93,8 @@ function Player() {
             <div className="nameAndRange">
                 <div className="musicName">
                     <div className="name">
-                        <h3 className="title">Path</h3>
-                        <p className="subTitle">Apocalyptica</p>
+                        <h3 className="title">Ignis</h3>
+                        <p className="subTitle">Scott Buckley</p>
                     </div>
                     <div className="time">
                         <p>{currTime.min}:{currTime.sec} / {time.min}:{time.sec}</p>
