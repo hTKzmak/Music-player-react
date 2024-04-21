@@ -1,15 +1,14 @@
 import { useRef } from 'react';
 import './Player.scss'
 import { BsFillSkipStartCircleFill, BsFillPlayCircleFill, BsFillSkipEndCircleFill, BsFillPauseCircleFill } from 'react-icons/bs'
-import { LiaRandomSolid } from "react-icons/lia";
 import { ReactComponent as Repeat } from '../../assets/Repeat.svg'
 import { ReactComponent as RepeatSong } from '../../assets/RepeatSong.svg'
 import { ReactComponent as Volume } from '../../assets/Volume.svg'
 import { ReactComponent as VolumeMute } from '../../assets/VolumeMute.svg'
 import { ReactComponent as Mix } from '../../assets/Mix.svg'
-// import { ReactComponent as DontMix } from '../../assets/DontMix.svg'
+import { ReactComponent as DontMix } from '../../assets/DontMix.svg'
 
-function Player({ audioElem, isPlaying, setIsPlaying, currentSong, setCurrentSong, songs, loopMusic, setLoopMusic, volume, setVolume }) {
+function Player({ audioElem, isPlaying, setIsPlaying, currentSong, setCurrentSong, songs, loopMusic, setLoopMusic, volume, setVolume, mixMusic, setMixMusic }) {
 
     const clickRef = useRef();
 
@@ -27,7 +26,6 @@ function Player({ audioElem, isPlaying, setIsPlaying, currentSong, setCurrentSon
 
         // меняем текущее значение времени audioElem на выбранный нами период (чтобы не вылезала ошибка после перезагрузки, если решил перемотать музыку, не воиспроизводив её, то пишем "или 0"
         audioElem.current.currentTime = (divProgress / 100 * currentSong.length) || 0;
-
     }
 
     // ф-ия по воспроизведению предыдущей музыки 
@@ -91,10 +89,10 @@ function Player({ audioElem, isPlaying, setIsPlaying, currentSong, setCurrentSon
                 )}
 
                 <div id="music">
-                    {volume == 0 ? (
-                        <VolumeMute className='btn_control' onClick={() => setVolume(1)}/>
+                    {volume === '0' ? (
+                        <VolumeMute className='btn_control' onClick={() => setVolume('1')} />
                     ) : (
-                        <Volume className='btn_control' onClick={() => setVolume(0)}/>
+                        <Volume className='btn_control' onClick={() => setVolume('0')} />
                     )}
                     <input
                         type="range"
@@ -110,7 +108,11 @@ function Player({ audioElem, isPlaying, setIsPlaying, currentSong, setCurrentSon
                     />
                 </div>
 
-                <Mix className='btn_control'/>
+                {mixMusic === false ? (
+                    <DontMix className='btn_control' onClick={() => setMixMusic(true)} />
+                ) : (
+                    <Mix className='btn_control' onClick={() => setMixMusic(false)} />
+                )}
             </div>
         </div>
     )

@@ -3,7 +3,7 @@ import './App.css'
 import Player from './components/Player';
 
 // импорт всей музыки
-import { songsdata } from './components/Player/audios.js'
+import { songsdata } from './components/Player/audios.js';
 
 function App() {
 
@@ -20,10 +20,13 @@ function App() {
   const audioElem = useRef();
 
   // для повторения воспроизведения музыки
-  const [loopMusic, setLoopMusic] = useState(false) 
+  const [loopMusic, setLoopMusic] = useState(false);
 
   // для изменения громкости
-  const [volume, setVolume] = useState(1)
+  const [volume, setVolume] = useState(1);
+
+  // для перемешивания музыки (будет воспроизводиться рандомная музыка из списка)
+  const [mixMusic, setMixMusic] = useState(false);
 
 
 
@@ -37,7 +40,9 @@ function App() {
     }
   }, [isPlaying])
 
-  // ф-ия для ползунка плеера
+
+  // ф-ия для ползунка плеера (эта функция ещё нужна для того, чтобы отслеживать изменения)
+
   const onPlaying = () => {
     // вся продолжительность музыки
     const duration = audioElem.current.duration
@@ -45,16 +50,24 @@ function App() {
     const currentTime = audioElem.current.currentTime
 
     // заменяем значение currentSong на тот-же currentSong, но с инфой о прогрессе и длине текущей музыки 
-    setCurrentSong({ ...currentSong, "progress": currentTime / duration * 100, "length": duration })    
+    setCurrentSong({ ...currentSong, "progress": currentTime / duration * 100, "length": duration })
 
     // изменяем громкость музыки
     audioElem.current.volume = volume
+
+    // Перемешивание списка музыки
+    if (mixMusic === true && currentSong.progress >= 100) {
+      const randomSongIndex = Math.floor(Math.random() * songsdata.length);
+      setCurrentSong({...songsdata[randomSongIndex], "progress": currentTime / duration * 100, "length": duration});
+      console.log(currentSong)
+    }
   }
+
 
   return (
     <div className="App">
-      <audio src={currentSong.url} ref={audioElem} onTimeUpdate={onPlaying} loop={loopMusic} volume={volume}/>
-      <Player songs={songs} setSongs={setSongs} isPlaying={isPlaying} setIsPlaying={setIsPlaying} audioElem={audioElem} currentSong={currentSong} setCurrentSong={setCurrentSong} loopMusic={loopMusic} setLoopMusic={setLoopMusic} volume={volume} setVolume={setVolume}/>
+      <audio src={currentSong.url} ref={audioElem} onTimeUpdate={onPlaying} loop={loopMusic} volume={volume} />
+      <Player songs={songs} setSongs={setSongs} isPlaying={isPlaying} setIsPlaying={setIsPlaying} audioElem={audioElem} currentSong={currentSong} setCurrentSong={setCurrentSong} loopMusic={loopMusic} setLoopMusic={setLoopMusic} volume={volume} setVolume={setVolume} mixMusic={mixMusic} setMixMusic={setMixMusic} />
     </div>
   );
 }
